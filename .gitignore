@@ -1,0 +1,68 @@
+# ---------------------------------------------------------------- #
+# 1. DEPENDENCIES (node_modules)
+# ---------------------------------------------------------------- #
+
+# Ignore dependency folders at all levels
+# (Root, Client, and Server)
+node_modules/
+**/node_modules
+.npm
+.eslintcache
+
+# ---------------------------------------------------------------- #
+# 2. LOCAL AND ENVIRONMENT CONFIGURATION
+# ---------------------------------------------------------------- #
+
+# Secret environment variables (essential for security)
+.env
+.env.local
+.env.*.local
+
+# Log and debugging files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.log
+
+# IDEs (Visual Studio Code, JetBrains, etc.)
+.vscode/
+.idea/
+*.sublime-workspace
+*.DS_Store
+Thumbs.db
+
+# ---------------------------------------------------------------- #
+# 3. FRONTEND SPECIFIC (React /client)
+# ---------------------------------------------------------------- #
+
+# Build directory (Output of npm run build)
+/client/build
+/client/dist
+/client/.vite
+/client/out
+
+# CRA or Vite cache
+/client/temp
+/client/web_modules
+/client/.cache
+
+# ---------------------------------------------------------------- #
+# 4. BACKEND SPECIFIC (Express /server)
+# ---------------------------------------------------------------- #
+
+# Local database files and sessions
+*.sqlite
+*.sqlite-journal
+*.db
+/server/sessions/
+
+# Generated migration files or local configuration
+/server/config/local.json
+
+# ---------------------------------------------------------------- #
+# 5. TESTS AND COVERAGE
+# ---------------------------------------------------------------- #
+
+coverage/
+.nyc_output/
