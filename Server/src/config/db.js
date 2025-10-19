@@ -1,6 +1,5 @@
 import mysql from 'mysql2/promise'
 import 'dotenv/config'
-import  Chalk  from "chalk";
 import chalk from 'chalk';
 
 
