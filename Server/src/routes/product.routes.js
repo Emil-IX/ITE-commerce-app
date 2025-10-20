@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { createProduct, getAllProducts } from "../controllers/products.controllers.js";
+import {
+    createProduct,
+    deleteProducts,
+    getAllProducts,
+    updateProduct
+} from "../controllers/products.controllers.js";
 
 const router = Router()
 
@@ -110,6 +115,140 @@ router.get('/', getAllProducts);
 router.post('/', createProduct)
 
 
+/**
+ * @swagger
+ * /products/{id}:
+ *   put:
+ *     tags:
+ *       - Products
+ *     summary: Update an existing product
+ *     description: Updates one or more fields of a product by its ID. At least one field must be provided in the request body.
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: The ID of the product to update
+ *         schema:
+ *           type: integer
+ *           example: 5
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: "Updated Product Name"
+ *               price:
+ *                 type: number
+ *                 format: float
+ *                 example: 79.99
+ *               description:
+ *                 type: string
+ *                 example: "Updated description of the product"
+ *               image_url:
+ *                 type: string
+ *                 example: "https://my-store.com/images/updated-product.jpg"
+ *               stock:
+ *                 type: integer
+ *                 example: 25
+ *     responses:
+ *       200:
+ *         description: Product updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Product was updated successfully"
+ *       400:
+ *         description: Invalid request — at least one field must be provided
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Must have at least one field completed"
+ *       404:
+ *         description: Product not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Product not found"
+ *       500:
+ *         description: Internal server error while updating the product
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Error updating product"
+ */
+
+router.put('/:id', updateProduct)
+
+
+/**
+ * @swagger
+ * /products/{id}:
+ *   delete:
+ *     tags:
+ *       - Products
+ *     summary: Delete a product by ID
+ *     description: Deletes a product from the database by its ID. Returns 404 if the product does not exist.
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: The ID of the product to delete
+ *         schema:
+ *           type: integer
+ *           example: 5
+ *     responses:
+ *       200:
+ *         description: Product deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example: { "affectedRows": 1 }
+ *       404:
+ *         description: Product not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Products not found"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Internal server error"
+ *                 error:
+ *                   type: string
+ */
+
+router.delete('/:id' , deleteProducts)
 
 
 
