@@ -19,6 +19,28 @@ export const getAllProducts = async (req, res) => {
 
 }
 
+//get one product
+export const getOneproduct = async (req, res) => {
+
+    try {
+        const { id } = req.params
+
+        const sql = 'SELECT * FROM Products WHERE id = ?'
+        const value = []
+        value.push(id)
+
+        const [result] = await connection.execute(sql, value)
+
+        if (result.length === 0) {
+            return res.status(404).json({ message: 'Products not faund' })
+        }
+
+        res.status(200).json(result)
+
+    } catch (error) {
+        res.status(500).json({ message: 'Internar server error:', error })
+    }
+}
 
 
 //Create a new product
@@ -126,7 +148,7 @@ export const deleteProducts = async (req, res) => {
             return res.status(404).json({ message: 'Products not faund' })
         }
 
-        res.status(201).json({ message: 'Product was deleted successly',})
+        res.status(201).json({ message: 'Product was deleted successly', })
 
 
     } catch (error) {

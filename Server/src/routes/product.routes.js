@@ -3,6 +3,7 @@ import {
     createProduct,
     deleteProducts,
     getAllProducts,
+    getOneproduct,
     updateProduct
 } from "../controllers/products.controllers.js";
 
@@ -27,10 +28,73 @@ const router = Router()
  *       500:
  *         description: Error getting users
  */
-
 router.get('/', getAllProducts);
 
-
+/**
+ * @swagger
+ * /products/{id}:
+ *   get:
+ *     summary: Retrieve a single product by its ID
+ *     tags:
+ *       - Products
+ *     description: Returns all details of a specific product from the database based on the provided ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *         description: The ID of the product to retrieve.
+ *     responses:
+ *       200:
+ *         description: Product retrieved successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 name:
+ *                   type: string
+ *                   example: "Wireless Mouse"
+ *                 price:
+ *                   type: number
+ *                   format: float
+ *                   example: 25.99
+ *                 description:
+ *                   type: string
+ *                   example: "Ergonomic wireless mouse with 2.4GHz connection."
+ *                 image_url:
+ *                   type: string
+ *                   example: "https://api.store.com/images/mouse.jpg"
+ *                 stock:
+ *                   type: integer
+ *                   example: 50
+ *       404:
+ *         description: Product not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Product not found.
+ *       500:
+ *         description: Internal server error or database error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Internal server error.
+ */
+router.get('/:id', getOneproduct)
 
 /**
  * @swagger
@@ -111,9 +175,7 @@ router.get('/', getAllProducts);
  *                   type: string
  *                   example: "Internal server error"
  */
-
 router.post('/', createProduct)
-
 
 /**
  * @swagger
@@ -196,9 +258,7 @@ router.post('/', createProduct)
  *                   type: string
  *                   example: "Error updating product"
  */
-
 router.put('/:id', updateProduct)
-
 
 /**
  * @swagger
@@ -247,8 +307,7 @@ router.put('/:id', updateProduct)
  *                 error:
  *                   type: string
  */
-
-router.delete('/:id' , deleteProducts)
+router.delete('/:id', deleteProducts)
 
 
 
