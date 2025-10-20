@@ -2,11 +2,15 @@ import express  from 'express'
 import  { connectDB } from './config/db.js'
 import productoRoute from './routes/product.routes.js'
 import { swaggerUi, swaggerSpec } from "./swagger.js";
+import { corsMiddleware } from './config/cors.js';
 
 
 
 //This is the server app from express
 const app = express()
+
+//cors
+app.use(corsMiddleware)
 
 //mySQL db
 connectDB()
