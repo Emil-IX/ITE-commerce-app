@@ -5,7 +5,7 @@ import connection from '../config/db.js';
 
 
 
-//get all products
+//Get all products
 export const getAllProducts = async (req, res) => {
 
     try {
@@ -19,7 +19,7 @@ export const getAllProducts = async (req, res) => {
 
 }
 
-//get one product
+//Get a single product by id
 export const getOneproduct = async (req, res) => {
 
     try {
@@ -74,7 +74,7 @@ export const createProduct = async (req, res) => {
 
 
 
-//update products
+//Update products
 export const updateProduct = async (req, res) => {
 
     try {
@@ -131,6 +131,7 @@ export const updateProduct = async (req, res) => {
 }
 
 
+//Delete product by id
 export const deleteProducts = async (req, res) => {
 
     try {
