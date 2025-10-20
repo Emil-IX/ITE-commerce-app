@@ -6,13 +6,13 @@ const options = {
   definition: {
     openapi: "3.0.0", 
     info: {
-      title: "API Backend - Proyecto", // título de la API
-      version: "1.0.0",                // versión del proyecto
-      description: "Documentación de la API con Swagger", // descripción 
+      title: "API Backend - E-comerce", 
+      version: "1.0.0",                
+      description: "Documentación de la API con Swagger", 
     },
     servers: [
       {
-        url: "http://localhost:3000/api", // URL base de API
+        url: "http://localhost:3000/api", // base URL
       },
     ],
      components: {
@@ -25,7 +25,7 @@ const options = {
       },
     },
   },
-  apis: ["./src/routes/*.js"], //  indica dónde buscar los comentarios JSDoc
+  apis: ["./src/routes/*.js"], //   where to find JSDoc comments
 };
 
 const swaggerSpec = swaggerJsdoc(options);
