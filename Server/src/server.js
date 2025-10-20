@@ -1,7 +1,7 @@
 import express  from 'express'
-import connectDB from './config/db.js'
+import  { connectDB } from './config/db.js'
 import productoRoute from './routes/product.routes.js'
- ''
+import { swaggerUi, swaggerSpec } from "./swagger.js";
 
 
 
@@ -13,6 +13,9 @@ connectDB()
 
 //For json
 app.use(express.json())
+
+//documentation
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 

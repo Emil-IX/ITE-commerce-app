@@ -8,7 +8,7 @@ import connection from '../config/db.js';
 export const getAllProducts = async (req,  res) => {
 
 try {
-    const [row] = connection.execute('SELECT * FROM Products')
+    const [row] = await connection.execute('SELECT * FROM Products')
     res.status(200).json(row) 
 } catch (error) {
     console.log(error)

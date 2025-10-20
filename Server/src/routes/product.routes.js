@@ -5,7 +5,26 @@ const router = Router()
 
 
 
-router.get('/', getAllProducts)
+
+
+
+/**
+ * @swagger
+ * /products:
+ *   get:
+ *     summary: Get all products 
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of products
+ *       500:
+ *         description: Error getting users
+ */
+router.get('/', getAllProducts);
+
+
 
 
 
