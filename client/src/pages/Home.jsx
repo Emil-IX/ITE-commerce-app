@@ -31,14 +31,14 @@ console.log(data)
 
   return (
     <>
-        <div>
+        <div className="container-xl">
             {data &&  data.map(product =>(
-                <div key={product.id}>
+                <div key={product.id} className="card">
                     <h1>{product.name}</h1>
                     <img src={product.image_url} alt="" />
-                    <p>{product.price}</p>
-                    <p>{product.stock}</p>
-                    <p>{product.description}</p>
+                    <p><strong>Price: </strong>{product.price}</p>
+                    <p><strong>Stock: </strong>{product.stock}</p>
+                    <p><strong>Description: </strong>{product.description}</p>
                 </div>
             ))}
         </div>

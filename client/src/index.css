@@ -1,0 +1,34 @@
+
+.container-xl {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    margin: 2em ;
+    width: 250px;
+    padding: 10px 20px;
+    border: 2px solid rgb(38, 189, 24);
+    gap: 0.5em;
+    justify-content: center;
+    
+}
+
+.card img {
+    height: 200px;
+    object-fit: cover;
+    width: 250px;
+    margin-bottom: 0.5em;
+}
+
+.card h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 25px;
+}
+
+.card p {
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+}

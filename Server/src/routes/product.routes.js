@@ -6,9 +6,13 @@ import {
     getOneproduct,
     updateProduct
 } from "../controllers/products.controllers.js";
+import multer from "multer";
+
+
+
 
 const router = Router()
-
+const upload = multer({dest:'uploads/'})    
 
 
 
@@ -101,37 +105,42 @@ router.get('/:id', getOneproduct)
  * /products:
  *   post:
  *     summary: Create a new product
- *     description: This endpoint allows you to create a new product in the database, including its name, price, description, image URL, and stock quantity.
+ *     description: This endpoint creates a new product and uploads its image to Cloudinary. It stores the product data and image URL in the database.
  *     tags:
  *       - Products
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             required:
  *               - name
  *               - price
  *               - description
- *               - image_url
  *               - stock
+ *               - image
  *             properties:
  *               name:
  *                 type: string
+ *                 description: Name of the product.
  *                 example: "Sports T-shirt"
  *               price:
  *                 type: number
+ *                 description: Price of the product.
  *                 example: 29.99
  *               description:
  *                 type: string
- *                 example: "Lightweight and breathable training T-shirt"
- *               image_url:
- *                 type: string
- *                 example: "https://my-store.com/images/tshirt.jpg"
+ *                 description: Product description.
+ *                 example: "Lightweight and breathable training T-shirt."
  *               stock:
  *                 type: integer
+ *                 description: Quantity in stock.
  *                 example: 100
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *                 description: Product image file to upload to Cloudinary.
  *     responses:
  *       201:
  *         description: Product created successfully
@@ -143,12 +152,12 @@ router.get('/:id', getOneproduct)
  *                 message:
  *                   type: string
  *                   example: "Product was created successfully"
- *                 productId:
- *                   type: integer
- *                   example: 12
  *                 product:
  *                   type: object
  *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 12
  *                     name:
  *                       type: string
  *                       example: "Sports T-shirt"
@@ -157,13 +166,26 @@ router.get('/:id', getOneproduct)
  *                       example: 29.99
  *                     description:
  *                       type: string
- *                       example: "Lightweight and breathable training T-shirt"
- *                     image_url:
- *                       type: string
- *                       example: "https://my-store.com/images/tshirt.jpg"
+ *                       example: "Lightweight and breathable training T-shirt."
  *                     stock:
  *                       type: integer
  *                       example: 100
+ *                     image_url:
+ *                       type: string
+ *                       example: "https://res.cloudinary.com/demo/image/upload/v17300000/tshirt.jpg"
+ *                     public_id:
+ *                       type: string
+ *                       example: "e-commerce/tshirt_abc123"
+ *       400:
+ *         description: Missing or invalid fields
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "All fields must be filled"
  *       500:
  *         description: Internal server error
  *         content:
@@ -174,8 +196,12 @@ router.get('/:id', getOneproduct)
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
+ *                 error:
+ *                   type: string
+ *                   example: "Error message from server"
  */
-router.post('/', createProduct)
+
+router.post('/', upload.single('image') ,createProduct)
 
 /**
  * @swagger
@@ -264,18 +290,18 @@ router.put('/:id', updateProduct)
  * @swagger
  * /products/{id}:
  *   delete:
+ *     summary: Delete a product
+ *     description: Deletes a product by its ID and removes its image from Cloudinary.
  *     tags:
  *       - Products
- *     summary: Delete a product by ID
- *     description: Deletes a product from the database by its ID. Returns 404 if the product does not exist.
  *     parameters:
- *       - name: id
- *         in: path
+ *       - in: path
+ *         name: id
  *         required: true
- *         description: The ID of the product to delete
  *         schema:
  *           type: integer
- *           example: 5
+ *         description: ID of the product to delete
+ *         example: 12
  *     responses:
  *       200:
  *         description: Product deleted successfully
@@ -283,7 +309,10 @@ router.put('/:id', updateProduct)
  *           application/json:
  *             schema:
  *               type: object
- *               example: { "affectedRows": 1 }
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Product was deleted successfully"
  *       404:
  *         description: Product not found
  *         content:
@@ -293,7 +322,7 @@ router.put('/:id', updateProduct)
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Products not found"
+ *                   example: "Product not found"
  *       500:
  *         description: Internal server error
  *         content:
@@ -306,7 +335,9 @@ router.put('/:id', updateProduct)
  *                   example: "Internal server error"
  *                 error:
  *                   type: string
+ *                   example: "Error message from server"
  */
+
 router.delete('/:id', deleteProducts)
 
 
