@@ -1,16 +1,20 @@
 
+
 .container-xl {
     display: flex;
     flex-wrap: wrap;
+     background-color: rgb(224, 227, 227);
+     min-height: 100vh;
 }
 
 .card {
+    background-color: white;
     display: flex;
     flex-direction: column;
     margin: 2em ;
     width: 250px;
     padding: 10px 20px;
-    border: 2px solid rgb(38, 189, 24);
+    border: 1px solid rgb(38, 189, 24);
     gap: 0.5em;
     justify-content: center;
     
@@ -25,10 +29,16 @@
 
 .card h1 {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 25px;
+    font-size: 18px;
 }
 
 .card p {
     font-family: 'Courier New', Courier, monospace;
     margin: 0;
+}
+
+.price {
+    color: rgb(130, 248, 11);
+    font-weight: 700;
+    font-size: 1.3em;
 }

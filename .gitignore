@@ -56,6 +56,7 @@ Thumbs.db
 *.sqlite-journal
 *.db
 /server/sessions/
+/server/uploads
 
 # Generated migration files or local configuration
 /server/config/local.json

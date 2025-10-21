@@ -36,7 +36,7 @@ console.log(data)
                 <div key={product.id} className="card">
                     <h1>{product.name}</h1>
                     <img src={product.image_url} alt="" />
-                    <p><strong>Price: </strong>{product.price}</p>
+                    <p className="price">${product.price}</p>
                     <p><strong>Stock: </strong>{product.stock}</p>
                     <p><strong>Description: </strong>{product.description}</p>
                 </div>
