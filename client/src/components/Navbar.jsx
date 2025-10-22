@@ -1,6 +1,6 @@
 import { ShoppingCart, LucideUserCircle, SearchIcon } from "lucide-react";
 import { useShop } from "../context/ShopContextProvider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
     const { setfindText } = useShop()
@@ -16,6 +16,13 @@ export default function Navbar() {
         }
     }
 
+    useEffect(() => {
+     if(inputFilter === '') {
+        setfindText('')
+     }
+    }, [inputFilter,setfindText])
+    
+
     return (
         <div className="navbar">
             <p className="title">ITE-commerce</p>
@@ -23,6 +30,7 @@ export default function Navbar() {
             <div className="filter">
                 <input
                     type="text"
+                    placeholder="Search products"
                     value={inputFilter}
                     onChange={(e) => setInputFilter(e.target.value)}
                     onKeyDown={handleKeyEnter}
