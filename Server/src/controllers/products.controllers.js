@@ -76,7 +76,8 @@ export const createProduct = async (req, res) => {
                 description,
                 stock,
                 image_url: resultCloudinary.secure_url,
-                public_id: resultCloudinary.public_id
+                public_id: resultCloudinary.public_id,
+                log:' It is done'
             }
         })
 
@@ -93,9 +94,9 @@ export const updateProduct = async (req, res) => {
     try {
 
         const { id } = req.params
-        const { name, price, description, image_url, stock } = req.body
+        const { name, price, description, stock } = req.body
 
-        if (!name && !price && !description && !image_url && !stock) {
+        if (!name && !price && !description && !stock) {
             return res.status(400).json({ message: 'Must have atleast one field completed' })
         }
 
@@ -115,10 +116,7 @@ export const updateProduct = async (req, res) => {
             sql += 'description = ?,'
             value.push(description)
         }
-        if (image_url) {
-            sql += 'image_url = ?,'
-            value.push(image_url)
-        }
+      
         if (stock) {
             sql += 'stock = ?, '
             value.push(stock)

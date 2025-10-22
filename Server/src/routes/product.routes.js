@@ -210,17 +210,18 @@ router.post('/', upload.single('image') ,createProduct)
  *     tags:
  *       - Products
  *     summary: Update an existing product
- *     description: Updates one or more fields of a product by its ID. At least one field must be provided in the request body.
+ *     description: Update one or more product fields (name, price, description, stock) by ID.
  *     parameters:
  *       - name: id
  *         in: path
  *         required: true
- *         description: The ID of the product to update
+ *         description: Product ID to update
  *         schema:
  *           type: integer
- *           example: 5
+ *           example: 10
  *     requestBody:
  *       required: true
+ *       description: Product data to update
  *       content:
  *         application/json:
  *           schema:
@@ -228,23 +229,19 @@ router.post('/', upload.single('image') ,createProduct)
  *             properties:
  *               name:
  *                 type: string
- *                 example: "Updated Product Name"
+ *                 example: "New Product Name"
  *               price:
  *                 type: number
- *                 format: float
- *                 example: 79.99
+ *                 example: 99.99
  *               description:
  *                 type: string
- *                 example: "Updated description of the product"
- *               image_url:
- *                 type: string
- *                 example: "https://my-store.com/images/updated-product.jpg"
+ *                 example: "Updated description"
  *               stock:
  *                 type: integer
- *                 example: 25
+ *                 example: 30
  *     responses:
  *       200:
- *         description: Product updated successfully
+ *         description: Product successfully updated
  *         content:
  *           application/json:
  *             schema:
@@ -254,36 +251,13 @@ router.post('/', upload.single('image') ,createProduct)
  *                   type: string
  *                   example: "Product was updated successfully"
  *       400:
- *         description: Invalid request — at least one field must be provided
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Must have at least one field completed"
+ *         description: Invalid body or no fields provided
  *       404:
  *         description: Product not found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Product not found"
  *       500:
- *         description: Internal server error while updating the product
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Error updating product"
+ *         description: Internal server error
  */
+
 router.put('/:id', updateProduct)
 
 /**
