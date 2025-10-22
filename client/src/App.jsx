@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Home from './pages/home'
 import PrivateLayout from './layouts/PrivateLayout'
-
+import { ShopContextProvider } from './context/ShopContextProvider'
+import Home from './pages/Home'
 
 
 function App() {
@@ -9,12 +9,16 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<PrivateLayout />}>
+      <ShopContextProvider>
+        <Routes>
 
-          <Route path='/' element={<Home />} />
-        </Route>
-      </Routes>
+          <Route path='/' element={<PrivateLayout />}>
+
+            <Route path='/' element={<Home />} />
+          </Route>
+          
+        </Routes>
+      </ShopContextProvider>
     </BrowserRouter>
   )
 }

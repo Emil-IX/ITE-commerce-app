@@ -1,14 +1,14 @@
-import { ShoppingCart, LucideUserCircle, Search, UserIcon, UserCircleIcon } from "lucide-react";
+import { ShoppingCart, LucideUserCircle, SearchIcon } from "lucide-react";
 
 export default function Navbar() {
     return (
         <div className="navbar">
-            <p className="title">The RightOne</p>
+            <p className="title">ITE-commerce</p>
 
             <div className="filter">
                 <input type="text" />
                 <button type="button">
-                    <Search className="searchIcon" />
+                    <SearchIcon className="searchIcon" />
                 </button>
             </div>
 
