@@ -1,4 +1,4 @@
-import { ShoppingCart, User } from "lucide-react";
+import { ShoppingCart, LucideUserCircle, Search, UserIcon, UserCircleIcon } from "lucide-react";
 
 export default function Navbar() {
     return (
@@ -7,14 +7,16 @@ export default function Navbar() {
 
             <div className="filter">
                 <input type="text" />
-                <button type="button">Search</button>
+                <button type="button">
+                    <Search className="searchIcon" />
+                </button>
             </div>
 
 
             <div className="welcome">
                 <ShoppingCart className="ShoppingCart" />
                 <p>Hello, Marcia </p>
-                <User className="user" />
+                <LucideUserCircle className="user" />
             </div>
         </div>
     )
