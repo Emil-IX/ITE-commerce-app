@@ -8,6 +8,11 @@
     background-color: rgb(0, 0, 0);
     padding: 2px 15px;
     height: 60px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 .title {
@@ -28,6 +33,7 @@
     width: 300px;
     border-radius: 3px;
     outline-color: rgb(29, 211, 29);
+
 }
 
 .filter button {
@@ -75,10 +81,16 @@
     color: white;
     cursor: pointer;
     margin-left: 5px;
+    margin-right: 25px;
     height: 30px;
     width: 30px;
 }
 
+
+
+.mainConten {
+    padding-top: 55px;
+}
 
 
 
