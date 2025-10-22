@@ -1,14 +1,16 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import{ api } from "../api/axios"
+import { api } from "../api/axios"
+import { useMemo } from "react"
 
 
 
 const ShopContext = createContext()
 
-export const  ShopContextProvider = ({ children }) => {
+export const ShopContextProvider = ({ children }) => {
 
 
-    const [data, setData] = useState('')
+    const [data, setData] = useState([])
+    const [findText, setfindText] = useState('')
 
 
     useEffect(() => {
@@ -23,10 +25,20 @@ export const  ShopContextProvider = ({ children }) => {
         getApi()
     }, [])
 
+    const filterProducts = useMemo(() => {
+
+        if (!findText) return data
+
+        const findTextLowerCase = findText.toLowerCase()
+        return data.filter(product => 
+             product.name.toLowerCase().includes(findTextLowerCase)
+            )
+    },[data, findText])
+
 
 
     return (
-        <ShopContext.Provider value={{ data, setData }}>
+        <ShopContext.Provider value={{ data, setData, filterProducts, findText, setfindText }}>
             {children}
         </ShopContext.Provider>
     )

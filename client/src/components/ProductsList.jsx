@@ -1,10 +1,11 @@
 import { useShop } from '../context/ShopContextProvider'
 
 export default function ProductsList() {
-    const { data } = useShop()
+    const { data , filterProducts } = useShop()
+   
   return (
     <div className="container-xl">
-            {data &&  data.map(product =>(
+            {filterProducts &&  filterProducts.map(product =>(
                 <div key={product.id} className="card">
                     <h1>{product.name}</h1>
                     <img src={product.image_url} alt="" />
