@@ -109,7 +109,7 @@
     flex-direction: column;
     margin: 2em;
     width: 250px;
-    height: 500px;
+    height: 400px;
     padding: 10px 20px;
     border: 1px solid rgb(38, 189, 24);
     gap: 0.5em;
@@ -126,16 +126,17 @@
 
 .card h1 {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 18px;
+    font-size: 17px;
 }
 
 .card p {
     font-family: 'Courier New', Courier, monospace;
     margin: 0;
+    font-size: 14px;
 }
 
 .price {
     color: rgb(109, 213, 5);
     font-weight: 900;
-    font-size: 1.3em;
+    font-size: 1.5em;
 }
