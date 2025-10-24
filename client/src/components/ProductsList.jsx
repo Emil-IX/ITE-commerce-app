@@ -13,7 +13,14 @@ export default function ProductsList() {
 
   const findProduct = (id) => {
     const result = filterProducts.find(product => product.id === id)
-    setCart([...cart, result])
+    setCart( prevCart => {
+      const existingItem = prevCart.some(product => product.id === id)
+      if(existingItem){
+        return prevCart
+      }
+
+     return [...prevCart, result]
+    })
   }
 
   return (
