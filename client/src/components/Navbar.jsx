@@ -1,10 +1,14 @@
 import { ShoppingCart, LucideUserCircle, SearchIcon } from "lucide-react";
 import { useShop } from "../context/ShopContextProvider";
 import { useEffect, useState } from "react";
+import ShopCartModal from "./ShopCartModal";
 
 export default function Navbar() {
     const { setfindText, cart } = useShop()
     const [inputFilter, setInputFilter] = useState('')
+    const [isCartOpen, setIsCartOpen] = useState(false);
+
+
 
     const handleFilter = () => {
         setfindText(inputFilter)
@@ -17,15 +21,14 @@ export default function Navbar() {
     }
 
     useEffect(() => {
-     if(inputFilter === '') {
-        setfindText('')
-     }
-    }, [inputFilter,setfindText])
+        if (inputFilter === '') {
+            setfindText('')
+        }
+    }, [inputFilter, setfindText])
 
-    const  openCart = () => {
-        console.log(cart)
-    }
-    
+    const openCart = () => setIsCartOpen(true);
+    const closeCart = () => setIsCartOpen(false);
+
 
     return (
         <div className="navbar">
@@ -49,13 +52,26 @@ export default function Navbar() {
 
 
             <div className="welcome">
-                <ShoppingCart 
-                className="ShoppingCart" 
-                onClick={openCart}
+                <ShoppingCart
+                    className="ShoppingCart"
+                    onClick={openCart}
                 />
                 <p>Hello, Marcia </p>
                 <LucideUserCircle className="user" />
             </div>
+
+            <ShopCartModal isOpen={isCartOpen} onClose={closeCart} >
+                {cart && cart.map(item => (
+                    <div key={item.id} className='cartItem'>
+                        <img src={item.image_url} alt={item.name} />
+                        <div className="cartItem_texts">
+                            <p>{item.name}</p>
+                            <p>{item.price}</p>
+                        </div>
+                    </div>
+                ))}
+            </ShopCartModal>
+
         </div>
     )
 }

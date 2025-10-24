@@ -187,3 +187,107 @@
 .shopButtonBuyNow:hover {
     background-color: rgb(93, 95, 93);
 }
+
+
+
+
+
+
+
+
+
+/* cart modal */
+
+.modal-overlay {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 350px;
+    background: #fff;
+    box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1px;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: green;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.modal-footer {
+    text-align: right;
+    padding-top: 15px;
+  /*   border-top: 1px solid #ccc; */
+}
+
+.modal-footer button {
+    width: 100px;
+    padding: 5px;
+    border: 0;
+    background-color: rgb(0, 0, 0);
+    border-radius: 2px;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.modal-footer button:hover {
+      background-color: rgb(93, 95, 93);
+}
+
+
+/* cart modal items */
+
+.cartTitle {
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(13, 178, 13);
+}
+
+.cartItem {
+    margin-top: 2px;
+    display: flex;
+    gap: 1em;
+    border-bottom: 1px solid rgb(215, 219, 215);
+
+}
+
+.cartItem img {
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+}
+
+.cartItem_texts p {
+    font-size: 13px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.cartItem_texts :nth-child(2) {
+    color: rgb(4, 133, 4);
+    font-weight: 700;
+}
