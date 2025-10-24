@@ -1,10 +1,10 @@
-import { ShoppingCart, LucideUserCircle, SearchIcon } from "lucide-react";
+import { ShoppingCart, LucideUserCircle, SearchIcon, TrashIcon } from "lucide-react";
 import { useShop } from "../context/ShopContextProvider";
 import { useEffect, useState } from "react";
 import ShopCartModal from "./ShopCartModal";
 
 export default function Navbar() {
-    const { setfindText, cart } = useShop()
+    const { setfindText, cart,  setCart } = useShop()
     const [inputFilter, setInputFilter] = useState('')
     const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -29,6 +29,11 @@ export default function Navbar() {
     const openCart = () => setIsCartOpen(true);
     const closeCart = () => setIsCartOpen(false);
 
+    const deleteCartItem = (id) => {
+        setCart(prevCart => prevCart.filter(item => item.id !== id));
+    }
+
+    let randonId =  Math.floor(Math.random() * 1000000) 
 
     return (
         <div className="navbar">
@@ -62,12 +67,18 @@ export default function Navbar() {
 
             <ShopCartModal isOpen={isCartOpen} onClose={closeCart} >
                 {cart && cart.map(item => (
-                    <div key={item.id} className='cartItem'>
+                    <div key={randonId++} className='cartItem'>
                         <img src={item.image_url} alt={item.name} />
                         <div className="cartItem_texts">
                             <p>{item.name}</p>
-                            <p>{item.price}</p>
+                            <p>{item.price} 
+                                <TrashIcon 
+                                className="trashIcon"
+                                onClick={()=> deleteCartItem(item.id)}
+                                />
+                                </p>     
                         </div>
+                      
                     </div>
                 ))}
             </ShopCartModal>

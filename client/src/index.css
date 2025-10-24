@@ -291,3 +291,9 @@
     color: rgb(4, 133, 4);
     font-weight: 700;
 }
+
+.trashIcon {
+    height: 15px;
+    cursor: pointer;
+    color: grey;
+}
