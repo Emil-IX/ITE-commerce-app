@@ -11,6 +11,7 @@ export const ShopContextProvider = ({ children }) => {
 
     const [data, setData] = useState([])
     const [findText, setfindText] = useState('')
+    const [cart, setCart] = useState([])
 
 
     useEffect(() => {
@@ -38,7 +39,7 @@ export const ShopContextProvider = ({ children }) => {
 
 
     return (
-        <ShopContext.Provider value={{ data, setData, filterProducts, findText, setfindText }}>
+        <ShopContext.Provider value={{ data, setData, filterProducts, findText, setfindText, cart, setCart }}>
             {children}
         </ShopContext.Provider>
     )

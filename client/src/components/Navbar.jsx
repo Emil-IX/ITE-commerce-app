@@ -3,7 +3,7 @@ import { useShop } from "../context/ShopContextProvider";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
-    const { setfindText } = useShop()
+    const { setfindText, cart } = useShop()
     const [inputFilter, setInputFilter] = useState('')
 
     const handleFilter = () => {
@@ -21,6 +21,10 @@ export default function Navbar() {
         setfindText('')
      }
     }, [inputFilter,setfindText])
+
+    const  openCart = () => {
+        console.log(cart)
+    }
     
 
     return (
@@ -45,7 +49,10 @@ export default function Navbar() {
 
 
             <div className="welcome">
-                <ShoppingCart className="ShoppingCart" />
+                <ShoppingCart 
+                className="ShoppingCart" 
+                onClick={openCart}
+                />
                 <p>Hello, Marcia </p>
                 <LucideUserCircle className="user" />
             </div>
