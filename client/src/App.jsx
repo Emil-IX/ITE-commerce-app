@@ -14,11 +14,11 @@ function App() {
         <Routes>
 
           <Route path='/' element={<PrivateLayout />}>
-
             <Route index element={<Home />} />
-            <Route path='bill' element={<Bill />} />
           </Route>
-          
+
+          <Route path='bill' element={<Bill />} />
+
         </Routes>
       </ShopContextProvider>
     </BrowserRouter>

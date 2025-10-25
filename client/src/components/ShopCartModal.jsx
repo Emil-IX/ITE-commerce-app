@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const ShopCartModal = ({ isOpen, onClose, children }) => {
+const ShopCartModal = ({ isOpen, onClose, children, footerButton = true }) => {
 
-  const {cart, setCart, total } = useShop()
+  const { cart, setCart, total } = useShop()
   const navigate = useNavigate()
 
   const deleteAllCartItem = () => {
@@ -39,17 +39,20 @@ const ShopCartModal = ({ isOpen, onClose, children }) => {
           <p>Total: ${total}</p>
         </div>
 
-        <div className="modal-footer">
-          <p onClick={deleteAllCartItem}
-          >
-            Clean list <Trash2Icon className="trashIcon" />
-          </p>
-          <button
-            onClick={() => navigate('bill')}
-            disabled={!cart.length}
-          >
-            Proceed to checkout</button>
-        </div>
+        { footerButton &&
+          <div className="modal-footer">
+            <p onClick={deleteAllCartItem}
+            >
+              Clean list <Trash2Icon className="trashIcon" />
+            </p>
+            <button
+              onClick={() => navigate('bill')}
+              disabled={!cart.length}
+            >
+              Proceed to checkout</button>
+          </div>
+
+        }
       </div>
     </div>
   );

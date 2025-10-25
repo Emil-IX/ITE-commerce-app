@@ -7,7 +7,7 @@ export default function PrivateLayout() {
     return (
         <div className="privateLayout">
 
-            <Navbar />
+            <Navbar filterApply />
 
             <main className="mainConten">
                 <Outlet />

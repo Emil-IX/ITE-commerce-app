@@ -96,7 +96,12 @@
     padding-top: 55px;
 }
 
+.secureCheckoutTitle {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.4em;
+    color: white;
 
+}
 
 
 
@@ -338,6 +343,7 @@
 
 /* BILL */
 .fatherBillContainer {
+    margin-top: 4em;
     height: 100vh;
     display: flex;
     flex-direction: row-reverse;
@@ -351,7 +357,7 @@
 .billContainer {
     width: 400px;
     padding: 15px 20px;
-    margin-bottom: 23.8em;
+    margin-bottom: 24.8em;
     border-radius: 1px;
     margin-right: 10em;
     background-color: white;

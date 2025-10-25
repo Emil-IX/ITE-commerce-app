@@ -3,7 +3,7 @@ import { useShop } from "../context/ShopContextProvider";
 import { useEffect, useState } from "react";
 import ShopCartModal from "./ShopCartModal";
 
-export default function Navbar() {
+export default function Navbar({ filterApply = true }) {
     const { setfindText, cart, setCart, cutDescription } = useShop()
     const [inputFilter, setInputFilter] = useState('')
     const [isCartOpen, setIsCartOpen] = useState(false);
@@ -39,21 +39,24 @@ export default function Navbar() {
         <div className="navbar">
             <p className="title">ITE-commerce</p>
 
-            <div className="filter">
-                <input
-                    type="text"
-                    placeholder="Search products"
-                    value={inputFilter}
-                    onChange={(e) => setInputFilter(e.target.value)}
-                    onKeyDown={handleKeyEnter}
-                />
-                <button
-                    type="button"
-                    onClick={handleFilter}
-                >
-                    <SearchIcon className="searchIcon" />
-                </button>
-            </div>
+            {filterApply ?
+                <div className="filter">
+                    <input
+                        type="text"
+                        placeholder="Search products"
+                        value={inputFilter}
+                        onChange={(e) => setInputFilter(e.target.value)}
+                        onKeyDown={handleKeyEnter}
+                    />
+                    <button
+                        type="button"
+                        onClick={handleFilter}
+                    >
+                        <SearchIcon className="searchIcon" />
+                    </button>
+                </div>
+                : <div className="secureCheckoutTitle"><p>Secure checkout</p></div>
+            }
 
 
             <div className="welcome">
@@ -65,19 +68,21 @@ export default function Navbar() {
                 <LucideUserCircle className="user" />
             </div>
 
-            <ShopCartModal isOpen={isCartOpen} onClose={closeCart} >
+            <ShopCartModal isOpen={isCartOpen} onClose={closeCart} footerButton={filterApply} >
                 {cart && cart.map(item => (
                     <div key={randonId++} className='cartItem'>
                         <div>
                             <img src={item.image_url} alt={item.name} />
                         </div>
                         <div className="cartItem_texts">
-                            <p>{cutDescription(item.name,50)}</p>
+                            <p>{cutDescription(item.name, 50)}</p>
                             <p>{item.price}</p>
-                              <Trash2Icon
+                            {filterApply &&
+                                <Trash2Icon
                                     className="trashIcon"
                                     onClick={() => deleteCartItem(item.id)}
                                 />
+                            }
                         </div>
 
                     </div>
