@@ -1,25 +1,19 @@
 import { useShop } from '../context/ShopContextProvider'
 
 export default function ProductsList() {
-  const { filterProducts, cart, setCart } = useShop()
+  const { filterProducts, cart, setCart, cutDescription } = useShop()
 
-  const cutDescription = (text, lenght) => {
-    if (text && text.length > lenght) {
-      return text.substring(0, lenght) + '...';
-    } else {
-      return text
-    }
-  }
+
 
   const findProduct = (id) => {
     const result = filterProducts.find(product => product.id === id)
-    setCart( prevCart => {
+    setCart(prevCart => {
       const existingItem = prevCart.some(product => product.id === id)
-      if(existingItem){
+      if (existingItem) {
         return prevCart
       }
 
-     return [...prevCart, result]
+      return [...prevCart, result]
     })
   }
 
@@ -28,7 +22,9 @@ export default function ProductsList() {
       {filterProducts && filterProducts.map(product => (
         <div key={product.id} className="card">
           <h1>{cutDescription(product.name, 50)}</h1>
-          <img src={product.image_url} alt="" />
+          <div>
+            <img src={product.image_url} alt={product.name} />
+          </div>
           <div className='textsContent'>
             <p className="price">${product.price}</p>
             <p><strong>Stock: </strong>{product.stock}</p>

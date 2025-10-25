@@ -1,10 +1,10 @@
-import { ShoppingCart, LucideUserCircle, SearchIcon, TrashIcon } from "lucide-react";
+import { ShoppingCart, LucideUserCircle, SearchIcon, Trash2Icon } from "lucide-react";
 import { useShop } from "../context/ShopContextProvider";
 import { useEffect, useState } from "react";
 import ShopCartModal from "./ShopCartModal";
 
 export default function Navbar() {
-    const { setfindText, cart,  setCart } = useShop()
+    const { setfindText, cart, setCart, cutDescription } = useShop()
     const [inputFilter, setInputFilter] = useState('')
     const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -33,7 +33,7 @@ export default function Navbar() {
         setCart(prevCart => prevCart.filter(item => item.id !== id));
     }
 
-    let randonId =  Math.floor(Math.random() * 1000000) 
+    let randonId = Math.floor(Math.random() * 1000000)
 
     return (
         <div className="navbar">
@@ -68,17 +68,18 @@ export default function Navbar() {
             <ShopCartModal isOpen={isCartOpen} onClose={closeCart} >
                 {cart && cart.map(item => (
                     <div key={randonId++} className='cartItem'>
-                        <img src={item.image_url} alt={item.name} />
-                        <div className="cartItem_texts">
-                            <p>{item.name}</p>
-                            <p>{item.price} 
-                                <TrashIcon 
-                                className="trashIcon"
-                                onClick={()=> deleteCartItem(item.id)}
-                                />
-                                </p>     
+                        <div>
+                            <img src={item.image_url} alt={item.name} />
                         </div>
-                      
+                        <div className="cartItem_texts">
+                            <p>{cutDescription(item.name,50)}</p>
+                            <p>{item.price}</p>
+                              <Trash2Icon
+                                    className="trashIcon"
+                                    onClick={() => deleteCartItem(item.id)}
+                                />
+                        </div>
+
                     </div>
                 ))}
             </ShopCartModal>

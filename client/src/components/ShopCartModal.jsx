@@ -1,8 +1,17 @@
-import { ShoppingCart, XSquare } from "lucide-react";
+import { ShoppingCart, XSquare, Trash2Icon  } from "lucide-react";
+import { useShop } from "../context/ShopContextProvider";
 
 
 
 const ShopCartModal = ({ isOpen, onClose, children }) => {
+
+    const {setCart, total} = useShop()
+
+     const deleteAllCartItem = () => {
+        setCart([]);
+    }
+
+ 
 
   if (!isOpen) {
     return null;
@@ -24,9 +33,16 @@ const ShopCartModal = ({ isOpen, onClose, children }) => {
         <div className="modal-body">
           {children} 
         </div>
+          <div className="total">
+            <p>Total: {total}</p>
+          </div>
 
         <div className="modal-footer">
-          <button>Buy now</button>
+          <p onClick={deleteAllCartItem}
+          >
+            Clean list <Trash2Icon    className="trashIcon"/>
+          </p>
+          <button >Proceed to checkout</button>
         </div>
       </div>
     </div>
