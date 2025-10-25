@@ -28,7 +28,7 @@ export default function ProductsList() {
       {filterProducts && filterProducts.map(product => (
         <div key={product.id} className="card">
           <h1>{cutDescription(product.name, 50)}</h1>
-          <div>
+          <div className='card_images'>
             <img src={product.image_url} alt={product.name} />
           </div>
           <div className='textsContent'>

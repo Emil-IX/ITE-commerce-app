@@ -1,7 +1,26 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useShop } from '../context/ShopContextProvider'
 
 const PaymentForm = ({ totalPrice }) => {
+
     const [paymentMethod, setPaymentMethod] = useState('card');
+
+    const navigate = useNavigate()
+    const { setCart } = useShop()
+    const [loading, setLoading] = useState(false)
+
+
+    const endPayment = () => {
+        setLoading(true)
+
+        setTimeout(() => {
+            setCart([])
+            navigate('/')
+            setLoading(false)
+        }, 4000)
+
+    }
 
     return (
         <div className="payment-information-container">
@@ -12,24 +31,24 @@ const PaymentForm = ({ totalPrice }) => {
                 <label htmlFor="email">Email</label>
                 <div className="input-with-icon">
                     <span className="icon">✉️</span>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        placeholder="youremail@example.com" 
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="youremail@example.com"
                     />
                 </div>
             </div>
 
             {/* Payment Method Toggle */}
             <div className="payment-method-toggle">
-                <button 
+                <button
                     className={`toggle-button ${paymentMethod === 'card' ? 'active' : ''}`}
                     onClick={() => setPaymentMethod('card')}
                 >
                     <span className="icon">💳</span>
                     Card
                 </button>
-                <button 
+                <button
                     className={`toggle-button ${paymentMethod === 'bank' ? 'active' : ''}`}
                     onClick={() => setPaymentMethod('bank')}
                 >
@@ -38,23 +57,23 @@ const PaymentForm = ({ totalPrice }) => {
                     <span className="price-tag">{totalPrice} US$</span>
                 </button>
             </div>
-            
+
             {/* Card Fields (Conditional render based on paymentMethod) */}
             {paymentMethod === 'card' && (
                 <>
                     {/* Card Number */}
                     <div className="form-group card-number-group">
                         <label htmlFor="cardNumber">Card Number</label>
-                        <input 
-                            type="text" 
-                            id="cardNumber" 
-                            placeholder="1234 1234 1234 1234" 
+                        <input
+                            type="text"
+                            id="cardNumber"
+                            placeholder="1234 1234 1234 1234"
                         />
                         <div className="card-icons">
                             {/* Reemplaza con tus imágenes o iconos SVG reales */}
-                            <img src="/visa.png" alt="Visa"/>
-                            <img src="/mastercard.jpg" alt="Mastercard"/>
-                            <img src="/amex.png" alt="Amex"/>
+                            <img src="/visa.png" alt="Visa" />
+                            <img src="/mastercard.jpg" alt="Mastercard" />
+                            <img src="/amex.png" alt="Amex" />
                         </div>
                     </div>
 
@@ -62,19 +81,19 @@ const PaymentForm = ({ totalPrice }) => {
                     <div className="row-group">
                         <div className="form-group half-width">
                             <label htmlFor="expirationDate">Expiration Date</label>
-                            <input 
-                                type="text" 
-                                id="expirationDate" 
-                                placeholder="MM / YY" 
+                            <input
+                                type="text"
+                                id="expirationDate"
+                                placeholder="MM / YY"
                             />
                         </div>
                         <div className="form-group half-width">
                             <label htmlFor="securityCode">Security Code</label>
                             <div className="input-with-icon-right">
-                                <input 
-                                    type="text" 
-                                    id="securityCode" 
-                                    placeholder="CVC" 
+                                <input
+                                    type="text"
+                                    id="securityCode"
+                                    placeholder="CVC"
                                 />
                                 <span className="icon-right">
                                     💳
@@ -96,15 +115,24 @@ const PaymentForm = ({ totalPrice }) => {
                 </select>
             </div>
 
+            <div className='loaderContent'>
+                {loading && <span class="loader"></span>}
+            </div>
+
             {/* Pay Button */}
-            <button className="pay-button">Pay ${totalPrice}</button>
+            <button
+                className="pay-button"
+                onClick={() => endPayment()}
+            >
+                Pay ${totalPrice}
+            </button>
 
             {/* Security Info */}
             <div className="security-info">
                 <span className="lock-icon">🔒</span>
                 Payment secured by Emil IXs<a href="https://stripe.com" target="_blank" rel="noopener noreferrer">Stripe</a>
             </div>
-        </div>
+        </div >
     );
 };
 
