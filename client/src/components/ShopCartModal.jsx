@@ -1,4 +1,4 @@
-import { ShoppingCart, XSquare, Trash2Icon  } from "lucide-react";
+import { ShoppingCart, XSquare, Trash2Icon } from "lucide-react";
 import { useShop } from "../context/ShopContextProvider";
 import { useNavigate } from "react-router-dom";
 
@@ -6,14 +6,14 @@ import { useNavigate } from "react-router-dom";
 
 const ShopCartModal = ({ isOpen, onClose, children }) => {
 
-    const {setCart, total} = useShop()
-    const navigate = useNavigate()
+  const {cart, setCart, total } = useShop()
+  const navigate = useNavigate()
 
-     const deleteAllCartItem = () => {
-        setCart([]);
-    }
+  const deleteAllCartItem = () => {
+    setCart([]);
+  }
 
- 
+
 
   if (!isOpen) {
     return null;
@@ -25,26 +25,30 @@ const ShopCartModal = ({ isOpen, onClose, children }) => {
 
       <div className="modal-content" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
-            <ShoppingCart/>
+          <ShoppingCart />
           <h2 className="cartTitle">Shopping Cart</h2>
           <button className="close-button" onClick={onClose}>
-             < XSquare className="xSquare" />
+            < XSquare className="xSquare" />
           </button>
         </div>
-        
+
         <div className="modal-body">
-          {children} 
+          {children}
         </div>
-          <div className="total">
-            <p>Total: ${total}</p>
-          </div>
+        <div className="total">
+          <p>Total: ${total}</p>
+        </div>
 
         <div className="modal-footer">
           <p onClick={deleteAllCartItem}
           >
-            Clean list <Trash2Icon    className="trashIcon"/>
+            Clean list <Trash2Icon className="trashIcon" />
           </p>
-          <button onClick={() => navigate('bill')} >Proceed to checkout</button>
+          <button
+            onClick={() => navigate('bill')}
+            disabled={!cart.length}
+          >
+            Proceed to checkout</button>
         </div>
       </div>
     </div>

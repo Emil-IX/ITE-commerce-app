@@ -1,9 +1,9 @@
+import PaymentForm from '../components/PaymentForm'
 import { useShop } from '../context/ShopContextProvider'
 
 function Bill() {
 
   const { total, cart } = useShop()
-
 
   return (
     <div className='fatherBillContainer'>
@@ -21,6 +21,7 @@ function Bill() {
           <p>${total}</p>
         </div>
       </div>
+      <PaymentForm totalPrice={total} />
     </div>
   )
 }
