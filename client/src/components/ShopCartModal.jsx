@@ -1,11 +1,13 @@
 import { ShoppingCart, XSquare, Trash2Icon  } from "lucide-react";
 import { useShop } from "../context/ShopContextProvider";
+import { useNavigate } from "react-router-dom";
 
 
 
 const ShopCartModal = ({ isOpen, onClose, children }) => {
 
     const {setCart, total} = useShop()
+    const navigate = useNavigate()
 
      const deleteAllCartItem = () => {
         setCart([]);
@@ -34,7 +36,7 @@ const ShopCartModal = ({ isOpen, onClose, children }) => {
           {children} 
         </div>
           <div className="total">
-            <p>Total: {total}</p>
+            <p>Total: ${total}</p>
           </div>
 
         <div className="modal-footer">
@@ -42,7 +44,7 @@ const ShopCartModal = ({ isOpen, onClose, children }) => {
           >
             Clean list <Trash2Icon    className="trashIcon"/>
           </p>
-          <button >Proceed to checkout</button>
+          <button onClick={() => navigate('bill')} >Proceed to checkout</button>
         </div>
       </div>
     </div>

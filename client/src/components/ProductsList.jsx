@@ -1,11 +1,12 @@
 import { useShop } from '../context/ShopContextProvider'
+import { useNavigate } from 'react-router-dom'
 
 export default function ProductsList() {
   const { filterProducts, cart, setCart, cutDescription } = useShop()
 
+  const navigate = useNavigate()
 
-
-  const findProduct = (id) => {
+  const findProduct = (id, sendCart = null) => {
     const result = filterProducts.find(product => product.id === id)
     setCart(prevCart => {
       const existingItem = prevCart.some(product => product.id === id)
@@ -15,6 +16,11 @@ export default function ProductsList() {
 
       return [...prevCart, result]
     })
+
+    if (sendCart) {
+      navigate('bill')
+    }
+
   }
 
   return (
@@ -41,6 +47,7 @@ export default function ProductsList() {
             <button
               className='shopButtonBuyNow'
               type='button'
+              onClick={() => findProduct(product.id, true)}
             >
               Buy Now
             </button>
