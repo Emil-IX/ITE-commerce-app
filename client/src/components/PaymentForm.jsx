@@ -11,8 +11,31 @@ const PaymentForm = ({ totalPrice }) => {
     const [loading, setLoading] = useState(false)
 
 
+    //form data 
+    const [email, setEmail] = useState('')
+    const [cardNumber, setCardNumber] = useState('')
+    const [expDate, setExpDate] = useState('')
+    const [secureCode, setSecureCode] = useState('')
+    const [contry, setContry] = useState('')
+
+    const [error, setError] = useState(null)
+
+
+
     const endPayment = () => {
+        if (paymentMethod === 'card') {
+
+            if (!email || !cardNumber || !expDate || !secureCode || !contry) {
+                return setError('All field must be completed')
+            }
+        }
+
+        if (!email) {
+            return setError('Email must be completed')
+        }
+
         setLoading(true)
+
 
         setTimeout(() => {
             setCart([])
@@ -21,6 +44,11 @@ const PaymentForm = ({ totalPrice }) => {
         }, 4000)
 
     }
+
+ 
+    if (error) {
+        const timer = setTimeout(() => setError(null), 3000);
+    } 
 
     return (
         <div className="payment-information-container">
@@ -34,6 +62,8 @@ const PaymentForm = ({ totalPrice }) => {
                     <input
                         type="email"
                         id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         placeholder="youremail@example.com"
                     />
                 </div>
@@ -49,6 +79,7 @@ const PaymentForm = ({ totalPrice }) => {
                     Card
                 </button>
                 <button
+                    disabled={true}
                     className={`toggle-button ${paymentMethod === 'bank' ? 'active' : ''}`}
                     onClick={() => setPaymentMethod('bank')}
                 >
@@ -67,6 +98,8 @@ const PaymentForm = ({ totalPrice }) => {
                         <input
                             type="text"
                             id="cardNumber"
+                            value={cardNumber}
+                            onChange={(e) => setCardNumber(e.target.value)}
                             placeholder="1234 1234 1234 1234"
                         />
                         <div className="card-icons">
@@ -84,15 +117,19 @@ const PaymentForm = ({ totalPrice }) => {
                             <input
                                 type="text"
                                 id="expirationDate"
+                                value={expDate}
+                                onChange={(e) => setExpDate(e.target.value)}
                                 placeholder="MM / YY"
                             />
                         </div>
                         <div className="form-group half-width">
-                            <label htmlFor="securityCode">Security Code</label>
+                            <label htmlFor="securityCode">S ecurity Code</label>
                             <div className="input-with-icon-right">
                                 <input
                                     type="text"
                                     id="securityCode"
+                                    value={secureCode}
+                                    onChange={(e) => setSecureCode(e.target.value)}
                                     placeholder="CVC"
                                 />
                                 <span className="icon-right">
@@ -107,8 +144,11 @@ const PaymentForm = ({ totalPrice }) => {
             {/* Country Field */}
             <div className="form-group">
                 <label htmlFor="country">Country</label>
-                <select id="country">
-                    <option value="dominican-republic" selected>Dominican Republic</option>
+                <select id="country"
+                    value={contry}
+                    onChange={(e) => setContry(e.target.value)}
+                >
+                    <option value="dominican-republic">Dominican Republic</option>
                     <option value="usa">United States</option>
                     <option value="canada">Canada</option>
                     {/* Add more contries */}
@@ -118,6 +158,9 @@ const PaymentForm = ({ totalPrice }) => {
             <div className='loaderContent'>
                 {loading && <span class="loader"></span>}
             </div>
+
+            {error && <div className='error'>{error}</div>}
+
 
             {/* Pay Button */}
             <button
@@ -129,8 +172,7 @@ const PaymentForm = ({ totalPrice }) => {
 
             {/* Security Info */}
             <div className="security-info">
-                <span className="lock-icon">🔒</span>
-                Payment secured by Emil IXs<a href="https://stripe.com" target="_blank" rel="noopener noreferrer">Stripe</a>
+                Payment secured by <a href="/" target="_blank" rel="noopener noreferrer">Emil IXs</a>
             </div>
         </div >
     );
