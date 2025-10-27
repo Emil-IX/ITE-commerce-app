@@ -127,7 +127,7 @@ const PaymentForm = ({ totalPrice }) => {
                             />
                         </div>
                         <div className="form-group half-width">
-                            <label htmlFor="securityCode">S ecurity Code</label>
+                            <label htmlFor="securityCode">Security Code</label>
                             <div className="input-with-icon-right">
                                 <IMaskInput
                                     mask='000'

@@ -35,6 +35,7 @@
     width: 300px;
     border-radius: 3px;
     outline-color: rgb(29, 211, 29);
+    font-family: 'Courier New', Courier, monospace;
 
 }
 
@@ -141,6 +142,7 @@
 .card_images img {
 
     width: 240px;
+    height: 250px;
     object-fit: cover;
     margin-bottom: 0.1em;
 }
