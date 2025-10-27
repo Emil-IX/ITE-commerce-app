@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useShop } from '../context/ShopContextProvider'
+import { IMaskInput } from 'react-imask';
 
 const PaymentForm = ({ totalPrice }) => {
 
@@ -45,10 +46,10 @@ const PaymentForm = ({ totalPrice }) => {
 
     }
 
- 
+
     if (error) {
         const timer = setTimeout(() => setError(null), 3000);
-    } 
+    }
 
     return (
         <div className="payment-information-container">
@@ -58,7 +59,6 @@ const PaymentForm = ({ totalPrice }) => {
             <div className="form-group email-group">
                 <label htmlFor="email">Email</label>
                 <div className="input-with-icon">
-                    <span className="icon">✉️</span>
                     <input
                         type="email"
                         id="email"
@@ -95,13 +95,16 @@ const PaymentForm = ({ totalPrice }) => {
                     {/* Card Number */}
                     <div className="form-group card-number-group">
                         <label htmlFor="cardNumber">Card Number</label>
-                        <input
+
+                        <IMaskInput
+                            mask='0000 0000 0000 0000'
+                            value={cardNumber}
+                            onAccept={(cleanValue) => setCardNumber(cleanValue)}
+                            placeholder="0000 0000 0000 0000"
                             type="text"
                             id="cardNumber"
-                            value={cardNumber}
-                            onChange={(e) => setCardNumber(e.target.value)}
-                            placeholder="1234 1234 1234 1234"
                         />
+
                         <div className="card-icons">
                             {/* Reemplaza con tus imágenes o iconos SVG reales */}
                             <img src="/visa.png" alt="Visa" />
@@ -114,22 +117,24 @@ const PaymentForm = ({ totalPrice }) => {
                     <div className="row-group">
                         <div className="form-group half-width">
                             <label htmlFor="expirationDate">Expiration Date</label>
-                            <input
+                            <IMaskInput
+                                mask='00/00'
                                 type="text"
                                 id="expirationDate"
                                 value={expDate}
-                                onChange={(e) => setExpDate(e.target.value)}
+                                onAccept={(cleanValue) => setExpDate(cleanValue)}
                                 placeholder="MM / YY"
                             />
                         </div>
                         <div className="form-group half-width">
                             <label htmlFor="securityCode">S ecurity Code</label>
                             <div className="input-with-icon-right">
-                                <input
+                                <IMaskInput
+                                    mask='000'
                                     type="text"
                                     id="securityCode"
                                     value={secureCode}
-                                    onChange={(e) => setSecureCode(e.target.value)}
+                                    onAccept={(cleanValue) => setSecureCode(cleanValue)}
                                     placeholder="CVC"
                                 />
                                 <span className="icon-right">
@@ -144,10 +149,18 @@ const PaymentForm = ({ totalPrice }) => {
             {/* Country Field */}
             <div className="form-group">
                 <label htmlFor="country">Country</label>
-                <select id="country"
+                <select
+                    id="country"
+                    className='country'
                     value={contry}
                     onChange={(e) => setContry(e.target.value)}
                 >
+                    <option
+                        value=""
+                        disabled
+                        hidden>
+                        Select your contry--
+                    </option>
                     <option value="dominican-republic">Dominican Republic</option>
                     <option value="usa">United States</option>
                     <option value="canada">Canada</option>
@@ -156,7 +169,7 @@ const PaymentForm = ({ totalPrice }) => {
             </div>
 
             <div className='loaderContent'>
-                {loading && <span class="loader"></span>}
+                {loading && <span className="loader"></span>}
             </div>
 
             {error && <div className='error'>{error}</div>}
