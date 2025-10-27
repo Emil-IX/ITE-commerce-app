@@ -53,17 +53,17 @@ export const createProduct = async (req, res) => {
             folder: 'e-commerce'
         })
 
-        const { name, price, description, stock } = req.body
+        const { name, price, description, category, stock } = req.body
 
 
 
-        if (!name || !price || !description || !resultCloudinary || !stock) {
+        if (!name || !price || !description || !resultCloudinary || !category || !stock) {
             return res.status(400).json({ message: 'All field Must be filled' })
         }
 
-        const sql = 'INSERT INTO Products (name, price, description, image_url, public_id, stock) VALUES(?,?,?,?,?,?)'
+        const sql = 'INSERT INTO Products (name, price, description, image_url, category, public_id, stock) VALUES(?,?,?,?,?,?,?)'
 
-        const values = [name, price, description, resultCloudinary.secure_url, resultCloudinary.public_id, stock]
+        const values = [name, price, description, resultCloudinary.secure_url, resultCloudinary.public_id, category,stock]
 
         const [result] = await connection.execute(sql, values)
 
@@ -74,6 +74,7 @@ export const createProduct = async (req, res) => {
                 name,
                 price,
                 description,
+                category,
                 stock,
                 image_url: resultCloudinary.secure_url,
                 public_id: resultCloudinary.public_id,
@@ -94,9 +95,9 @@ export const updateProduct = async (req, res) => {
     try {
 
         const { id } = req.params
-        const { name, price, description, stock } = req.body
+        const { name, price, description, category, stock } = req.body
 
-        if (!name && !price && !description && !stock) {
+        if (!name && !price && !description && !category && !stock) {
             return res.status(400).json({ message: 'Must have atleast one field completed' })
         }
 
@@ -104,19 +105,22 @@ export const updateProduct = async (req, res) => {
         const value = []
 
         if (name) {
-            sql += 'name = ?,'
+            sql += 'name = ?, '
             value.push(name)
         }
 
         if (price) {
-            sql += 'price = ?,'
+            sql += 'price = ?, '
             value.push(price)
         }
         if (description) {
-            sql += 'description = ?,'
+            sql += 'description = ?, '
             value.push(description)
         }
-      
+        if (category) {
+            sql += 'category = ?, '
+            value.push(category)
+        }
         if (stock) {
             sql += 'stock = ?, '
             value.push(stock)

@@ -118,6 +118,7 @@ router.get('/:id', getOneproduct)
  *               - name
  *               - price
  *               - description
+ *               - category
  *               - stock
  *               - image
  *             properties:
@@ -133,6 +134,10 @@ router.get('/:id', getOneproduct)
  *                 type: string
  *                 description: Product description.
  *                 example: "Lightweight and breathable training T-shirt."
+ *               category:
+ *                 type: string
+ *                 description: product category
+ *                 example: "Gaming"
  *               stock:
  *                 type: integer
  *                 description: Quantity in stock.
@@ -167,6 +172,9 @@ router.get('/:id', getOneproduct)
  *                     description:
  *                       type: string
  *                       example: "Lightweight and breathable training T-shirt."
+ *                     category:
+ *                       type: string
+ *                       example: "Gaming"
  *                     stock:
  *                       type: integer
  *                       example: 100
@@ -236,6 +244,9 @@ router.post('/', upload.single('image') ,createProduct)
  *               description:
  *                 type: string
  *                 example: "Updated description"
+ *               category:
+ *                 type: string
+ *                 example: "Gaming"
  *               stock:
  *                 type: integer
  *                 example: 30
