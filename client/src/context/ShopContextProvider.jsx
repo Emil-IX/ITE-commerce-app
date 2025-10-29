@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useCallback, useContext, useEffect, useState } from "react"
 import { api } from "../api/axios"
 import { useMemo } from "react"
 
@@ -14,12 +14,14 @@ export const ShopContextProvider = ({ children }) => {
   const [cart, setCart] = useState([])
   const [total, setTotal] = useState(0)
 
+  const [categoryFilter, setCategoryFilter] = useState(null)
 
   useEffect(() => {
     const getApi = async () => {
       try {
         const res = await api.get('/products')
         setData(res.data)
+        console.log(res.data)
       } catch (error) {
         console.log(error)
       }
@@ -28,14 +30,32 @@ export const ShopContextProvider = ({ children }) => {
   }, [])
 
   const filterProducts = useMemo(() => {
+      let filtered = data;
 
-    if (!findText) return data
+    if (categoryFilter) {
+      const findTextLowerCase = categoryFilter.toLowerCase();
+       filtered = filtered.filter(product =>
+        product.category.toLowerCase().includes(findTextLowerCase)
+      );
+    }
 
-    const findTextLowerCase = findText.toLowerCase()
-    return data.filter(product =>
-      product.name.toLowerCase().includes(findTextLowerCase)
-    )
-  }, [data, findText])
+    if (findText) {
+      const findTextLowerCase = findText.toLowerCase();
+       filtered = filtered.filter(product =>
+        product.name.toLowerCase().includes(findTextLowerCase)
+      );
+    }
+
+    return  filtered;
+
+  }, [data, findText, categoryFilter])
+
+const selectCategory = useCallback((category) => {
+  setCategoryFilter(prev => prev === category ? null : category);
+  setfindText(''); 
+}, []);
+
+
 
   const cutDescription = (text, lenght) => {
     if (text && text.length > lenght) {
@@ -64,7 +84,10 @@ export const ShopContextProvider = ({ children }) => {
         findText, setfindText,
         cart, setCart,
         cutDescription,
-        total, setTotal
+        total, setTotal,
+        filterProducts,
+        selectCategory
+
       }}>
       {children}
     </ShopContext.Provider>

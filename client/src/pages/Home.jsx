@@ -3,7 +3,6 @@ import ProductsList from "../components/ProductsList"
 
 
 function Home() {
-CategoryCarrusel
 
   return (
     <>

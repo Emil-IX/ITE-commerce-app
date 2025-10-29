@@ -2,7 +2,7 @@ import { useShop } from '../context/ShopContextProvider'
 import { useNavigate } from 'react-router-dom'
 
 export default function ProductsList() {
-  const { filterProducts, cart, setCart, cutDescription } = useShop()
+  const { filterProducts, setCart, cutDescription } = useShop()
 
   const navigate = useNavigate()
 

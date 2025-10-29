@@ -138,7 +138,7 @@
 }
 
 .categories:hover {
-    background-color:  rgb(213, 174, 94);
+    background-color: rgb(213, 174, 94);
 }
 
 
@@ -156,6 +156,23 @@
 .carrusel-container:hover .carrusel-track {
     animation-play-state: paused;
 }
+
+
+.removeContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255, 255, 255);
+    background-color: #333;
+    padding: 10px 10px;
+    cursor: pointer;
+}
+
+.reset-button {
+    margin-bottom: 5px;
+  
+}
+
 
 
 
