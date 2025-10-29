@@ -103,6 +103,54 @@
 }
 
 
+/* carrusel-categories */
+
+.carrusel-container {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+    background-color: #333;
+   
+}
+
+.carrusel-track {
+    display: flex;
+    width: auto;
+    animation: scroll 30s linear infinite;
+}
+
+.categories {
+    flex: 0 0 auto;
+    width: 200px;
+    height: 30px;
+    background-color: rgb(251, 189, 65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(27, 26, 35);
+    font-weight: 700;
+    border-radius: 2px;
+    margin: 0 10px;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+@keyframes scroll {
+    0% {
+        transform:  translateX(0);
+    }
+    
+    100%{
+        transform: translateX(-2200px);
+    }
+}
+
+.carrusel-container:hover .carrusel-track {
+    animation-play-state: paused;
+}
 
 
 
@@ -115,13 +163,14 @@
     background-color: rgb(224, 227, 227);
     min-height: 100vh;
     justify-content: center;
+    padding: 2em;
 }
 
 .card {
     background-color: white;
     display: flex;
     flex-direction: column;
-    margin: 0.8em;
+    margin: 0.8em ;
     width: 270px;
     height: 470px;
     padding: 10px 25px;
@@ -234,6 +283,8 @@
     border-radius: 8px;
     max-width: 500px;
     width: 90%;
+    overflow-y: auto;
+
 }
 
 .modal-header {
@@ -244,6 +295,8 @@
     padding-bottom: 5px;
     margin-bottom: 15px;
 }
+
+.modal-body {}
 
 .close-button {
     background: none;
@@ -343,7 +396,7 @@
 
 /* BILL */
 
-.error  {
+.error {
     padding: 10px 10px;
     background-color: rgb(254, 213, 213);
     color: red;
