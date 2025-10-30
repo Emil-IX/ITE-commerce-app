@@ -61,7 +61,7 @@ export const createProduct = async (req, res) => {
             return res.status(400).json({ message: 'All field Must be filled' })
         }
 
-        const sql = 'INSERT INTO Products (name, price, description, image_url, category, public_id, stock) VALUES(?,?,?,?,?,?,?)'
+        const sql = 'INSERT INTO Products (name, price, description, image_url, public_id, category, stock) VALUES(?,?,?,?,?,?,?)'
 
         const values = [name, price, description, resultCloudinary.secure_url, resultCloudinary.public_id, category,stock]
 

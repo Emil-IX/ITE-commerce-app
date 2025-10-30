@@ -9,7 +9,7 @@ function CategoryCarrusel() {
     const [xButton, setxButton] = useState(false)
 
     const categories = [
-        "Component", "Peripherals", "Storage", "Networking",
+        "PC","Component", "Peripherals", "Networking",
         "Audio&Video", "Smartphones", "Software", "Gaming",
         "Accessories", "Laptops"
     ];
