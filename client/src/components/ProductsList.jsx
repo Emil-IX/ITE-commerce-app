@@ -7,14 +7,36 @@ export default function ProductsList() {
   const navigate = useNavigate()
 
   const findProduct = (id, sendCart = null) => {
-    const result = filterProducts.find(product => product.id === id)
+    const productToAdd = filterProducts.find(product => product.id === id)
+
+    if (productToAdd.stock == 0) {
+      alert('Not product available')
+      return
+    }
+
     setCart(prevCart => {
-      const existingItem = prevCart.some(product => product.id === id)
-      if (existingItem) {
-        return prevCart
+
+      const existingItem = prevCart.findIndex(product => product.id === id)
+
+      if (existingItem > -1) {
+
+        const productInCart = prevCart[existingItem];
+
+        if (productInCart.quantity && productInCart.quantity >= productInCart.stock) {
+          return prevCart
+        }
+
+        const newCart = [...prevCart]
+
+        newCart[existingItem] = {
+          ...newCart[existingItem],
+          quantity: newCart[existingItem].quantity + 1
+        }
+        return newCart
       }
 
-      return [...prevCart, result]
+
+      return [...prevCart, { ...productToAdd, quantity: 1 }]
     })
 
     if (sendCart) {

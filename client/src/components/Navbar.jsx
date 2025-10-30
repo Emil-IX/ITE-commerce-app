@@ -1,4 +1,4 @@
-import { ShoppingCart, LucideUserCircle, SearchIcon, Trash2Icon } from "lucide-react";
+import { ShoppingCart, LucideUserCircle, SearchIcon, Trash2Icon, PlusIcon } from "lucide-react";
 import { useShop } from "../context/ShopContextProvider";
 import { useEffect, useState } from "react";
 import ShopCartModal from "./ShopCartModal";
@@ -7,7 +7,6 @@ export default function Navbar({ filterApply = true }) {
     const { setfindText, cart, setCart, cutDescription } = useShop()
     const [inputFilter, setInputFilter] = useState('')
     const [isCartOpen, setIsCartOpen] = useState(false);
-
 
 
     const handleFilter = () => {
@@ -34,6 +33,23 @@ export default function Navbar({ filterApply = true }) {
     }
 
     let randonId = Math.floor(Math.random() * 1000000)
+
+    const plusQuantity = (id) => {
+        setCart(prevCart => {
+
+            return prevCart.map(item => {
+
+                if (item.id === id && item.quantity < item.stock ) {
+                    return {
+                        ...item,
+                        quantity: item.quantity + 1
+                    };
+                }
+
+                return item;
+            });
+        });
+    };
 
     return (
         <div className="navbar">
@@ -77,12 +93,22 @@ export default function Navbar({ filterApply = true }) {
                         <div className="cartItem_texts">
                             <p>{cutDescription(item.name, 50)}</p>
                             <p>{item.price}</p>
-                            {filterApply &&
-                                <Trash2Icon
-                                    className="trashIcon"
-                                    onClick={() => deleteCartItem(item.id)}
-                                />
-                            }
+
+                            <div className="cartItem_texts--actions">
+                                {filterApply &&
+                                    <Trash2Icon
+                                        className="trashIcon"
+                                        onClick={() => deleteCartItem(item.id)}
+                                    />
+                                }
+                                <p className="quantity"> {item.quantity} </p>
+                                { filterApply &&
+                                    <PlusIcon
+                                        className="quantity_icon"
+                                        onClick={() => plusQuantity(item.id)}
+                                    />
+                                }
+                            </div>
                         </div>
 
                     </div>

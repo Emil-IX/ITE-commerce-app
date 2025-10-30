@@ -67,7 +67,9 @@ const selectCategory = useCallback((category) => {
 
   useEffect(() => {
     if (cart.length > 0) {
-      const newTotal = cart.reduce((acomulateTotal, product) => acomulateTotal + Number(product.price), 0)
+      const newTotal = cart.reduce((acomulateTotal, product) => 
+      acomulateTotal + (Number(product.price)  * product.quantity), 0)
+      
       const roundedTotal = Number(newTotal.toFixed(2))
       setTotal(roundedTotal)
     } else {

@@ -170,7 +170,7 @@
 
 .reset-button {
     margin-bottom: 5px;
-  
+
 }
 
 
@@ -396,16 +396,43 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.cartItem_texts :nth-child(2) {
-    color: rgb(4, 133, 4);
-    font-weight: 700;
+.cartItem_texts--actions {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    width: 60px;
+    padding: 0.5px;
+    margin-bottom: 5px;
+
+}
+
+.cartItem_texts--actions :nth-child(2) {
+    margin-top: 2.5px;
+    margin-bottom: 1px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.quantity_icon {
+    height: 20px;
+    padding: 1px;
+    font-size: 2em;
 }
 
 .trashIcon {
-    height: 15px;
+    height: 20px;
+    padding: 1px;
     cursor: pointer;
     color: grey;
 }
+
+.cartItem_texts :nth-child(2) {
+    padding: 1px 2px;
+    color: rgb(4, 133, 4);
+    font-weight: 700;
+    cursor: pointer;
+}
+
 
 .total p {
     margin-left: 2.6em;
