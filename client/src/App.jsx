@@ -3,6 +3,7 @@ import PrivateLayout from './layouts/PrivateLayout'
 import { ShopContextProvider } from './context/ShopContextProvider'
 import Home from './pages/Home'
 import Bill from './pages/Bill'
+import ProdutsDetails from './pages/ProdutsDetails'
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
 
           <Route path='/' element={<PrivateLayout />}>
             <Route index element={<Home />} />
+            <Route path='products/:id' element={<ProdutsDetails />} />
           </Route>
 
           <Route path='bill' element={<Bill />} />

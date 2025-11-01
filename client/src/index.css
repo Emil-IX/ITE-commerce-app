@@ -209,6 +209,9 @@
     gap: 5px;
 }
 
+.card_images {
+    cursor: pointer;
+}
 
 .card_images img {
 
@@ -318,7 +321,7 @@
     margin-bottom: 15px;
 }
 
-.modal-body {}
+
 
 .close-button {
     background: none;
@@ -741,4 +744,98 @@ select:focus {
     100% {
         transform: rotate(360deg);
     }
+}
+
+
+
+
+/* Product details */
+
+.detailContainer {
+    display: flex;
+    flex-direction: row;
+    margin: 7em 5em;
+    gap: 1em;
+
+}
+
+.picture img {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+}
+
+.mainContent {
+    width: 400px;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.mainContent h1 {
+    border-bottom: 2px solid green;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.mainContent :nth-child(3) span {
+    color: #ffffff;
+    background-color: #e09c12;
+    padding: 3px 4px;
+    border-radius: 5px;
+}
+
+.buttonContent_main_detail {
+    margin-top: 3em;
+    display: flex;
+    height: 200px;
+    flex-direction: column;
+    gap: 0.5em;
+    border: 1px solid green;
+    border-radius: 4px;
+    padding: 20px;
+
+}
+
+.buttonContent_main_detail p {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
+.buttonContent_main_detail h4 {
+    margin-bottom: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    color: rgb(109, 213, 5);
+}
+
+.shopButton_details {
+    width: 200px;
+    padding: 5px;
+    border: 0;
+    background-color: rgb(35, 195, 35);
+    border-radius: 2px;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.buttonContent_datails {
+    background-color: rgb(18, 132, 18);
+}
+
+.shopButtonBuyNow_details {
+    width: 200px;
+    padding: 5px;
+    border: 0;
+    background-color: rgb(0, 0, 0);
+    border-radius: 2px;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.shopButtonBuyNow_details:hover {
+    background-color: rgb(93, 95, 93);
 }

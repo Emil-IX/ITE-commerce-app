@@ -45,12 +45,20 @@ export default function ProductsList() {
 
   }
 
+  const goDetailsProducts = (id) => {
+    navigate(`products/${id}`)
+  }
+
+
   return (
     <div className="container-xl">
       {filterProducts && filterProducts.map(product => (
         <div key={product.id} className="card">
           <h1>{cutDescription(product.name, 50)}</h1>
-          <div className='card_images'>
+          <div
+            className='card_images'
+            onClick={() => goDetailsProducts(product.id)}
+          >
             <img src={product.image_url} alt={product.name} />
           </div>
           <div className='textsContent'>
