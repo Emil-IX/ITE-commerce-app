@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { api } from '../api/axios'
-import { data, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useShop } from '../context/ShopContextProvider'
 
 function ProdutsDetails() {
@@ -8,37 +8,40 @@ function ProdutsDetails() {
     const { id } = useParams()
     const [product, setProduct] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
 
     const { filterProducts, setCart, cutDescription } = useShop()
     const navigate = useNavigate()
 
 
     useEffect(() => {
-        const getProductsDetails = async (id) => {
+        let isMounted = true;
+        const getProductsDetails = async () => {
             try {
-                setLoading(true)
-                const res = await api.get(`/products/${id}`)
-                setProduct(res.data[0])
-                console.log(res.data[0])
-                setLoading(false)
+                setLoading(true);
+                const res = await api.get(`/products/${id}`);
+                if (isMounted) {
+                    setProduct(res.data[0]);
+                    setLoading(false);
+                }
             } catch (error) {
-                console.log(error)
+                if (isMounted) {
+                    setLoading(false);
+                    setError(error.message || "Failed to load product details.");
+                }
             }
-        }
+        };
 
-        getProductsDetails(id)
-    }, [id])
+        getProductsDetails();
+        return () => { isMounted = false };
+    }, [id]);
+
 
 
     if (loading) {
-        return <div>Loading product...</div>
+        return <div className='loaderFather'><span className="loader"></span></div>
     }
 
-    if (!product) {
-        return <div>Product not faund</div>
-    }
-
-    console.log(product.name)
 
 
 
@@ -85,38 +88,52 @@ function ProdutsDetails() {
 
     return (
 
-        <div className='detailContainer'>
-            <div className='picture'>
-                <img src={product.image_url} alt={product.name} />
+        <div>
+
+            {!product ? 
+            <div className='errorFather'>
+                <div className='divErrorImage'>
+                     <img src="../public/404j.jpg" alt="error" /> 
+                </div>
+                <p className='error2'>{error}</p>
             </div>
 
-            <div className='mainContent'>
-                <h1>{product.name}</h1>
-                <p>{product.description}</p>
-                <p>Category: <span>{product.category}</span> </p>
-                <h3>${product.price}</h3>
-            </div>
+                : <div className='detailContainer'>
+                    <div className='picture'>
+                        <img src={product.image_url} alt={product.name} />
+                    </div>
 
-            <div className='buttonContent_main_detail'>
-                <h4>${product.price}</h4>
-                <p>Stock: {product.stock}</p>
-                <button
-                    className='shopButton_details'
-                    type='button'
-                    onClick={() => findProduct(product.id)}
-                >
-                    Add to Cart
-                </button>
-                <button
-                    className='shopButtonBuyNow_details'
-                    type='button'
-                    onClick={() => findProduct(product.id, true)}
-                >
-                    Buy Now
-                </button>
-            </div>
+                    <div className='mainContent'>
+                        <h1>{product.name}</h1>
+                        <p>{product.description}</p>
+                        <p>Category: <span>{product.category}</span> </p>
+                        <h3>${product.price}</h3>
+                    </div>
+
+                    <div className='buttonContent_main_detail'>
+                        <h4>${product.price}</h4>
+                        <p>Stock: {product.stock}</p>
+                        <button
+                            className='shopButton_details'
+                            type='button'
+                            onClick={() => findProduct(product.id)}
+                        >
+                            Add to Cart
+                        </button>
+                        <button
+                            className='shopButtonBuyNow_details'
+                            type='button'
+                            onClick={() => findProduct(product.id, true)}
+                        >
+                            Buy Now
+                        </button>
+                    </div>
+
+                </div>
+            }
 
         </div>
+
 
     )
 }

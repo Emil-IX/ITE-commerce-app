@@ -839,3 +839,89 @@ select:focus {
 .shopButtonBuyNow_details:hover {
     background-color: rgb(93, 95, 93);
 }
+
+.errorFather {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5em;
+}
+
+.divErrorImage img {
+    width: 250px;
+
+}
+
+.error2 {
+    text-align: center;
+    width: 300px;
+    border-radius: 2px;
+    color: #333;
+    font-size: 22px;
+    font-weight: 700;
+    font-family:'Courier New', Courier, monospace;
+}
+
+
+
+
+/* loading */
+
+
+.loaderFather {
+    margin-top: 12em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 1s linear infinite
+}
+
+.loader::before,
+.loader::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0px;
+    border-radius: 50%;
+    border: 5px solid #FFF;
+    animation: prixClipFix 2s linear infinite;
+}
+
+.loader::after {
+    transform: rotate3d(90, 90, 0, 180deg);
+    border-color: #aeaeae;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes prixClipFix {
+    0% {
+        clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0)
+    }
+
+    50% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0)
+    }
+
+    75%,
+    100% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)
+    }
+}

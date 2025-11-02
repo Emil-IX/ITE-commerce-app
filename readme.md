@@ -2,18 +2,26 @@
 
 This project is an e-commerce platform with features such as listing products from a database and managing them dynamically from various endpoints, enabling full CRUD operations.
 
-### 1. Main view
+### Main view
 
 ![products list](client/public/page1.png)
 
-### 2. Cart list
+### Cart list
 
 ![cart list](client/public/page2.png)
 
-### 3. Filter
+### Filter
 
 ![filter](client/public/page3.png)
 
-### 4. Bill view
+### Products details
+
+![filter](client/public/page5.png)
+
+### Bill view
 
 ![bill](client/public/page4.png)
+
+### Error 404
+
+![bill](client/public/page0.png)
