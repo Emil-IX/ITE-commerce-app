@@ -21,6 +21,7 @@
     font-family: monospace;
     font-weight: 600;
     margin-left: 1em;
+    cursor: pointer;
 
 }
 
@@ -807,7 +808,7 @@ select:focus {
     margin-bottom: 5px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 700;
-    color: rgb(109, 213, 5);
+    color: rgb(7, 157, 2);
 }
 
 .shopButton_details {
@@ -924,4 +925,26 @@ select:focus {
     100% {
         clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)
     }
+}
+
+
+/* routernav */
+
+.routerNav {
+    margin: 5px 28px;
+    display: flex;
+    gap: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+}
+
+.routerNav :nth-child(1) {
+    color: grey;
+    border-right: 3px solid rgb(120, 120, 120);
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+.routerNav :nth-child(2) {
+color:  #e09c12;
 }

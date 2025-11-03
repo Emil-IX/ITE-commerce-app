@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { api } from '../api/axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useShop } from '../context/ShopContextProvider'
+import RaouterNav from '../components/RaouterNav'
 
 function ProdutsDetails() {
 
@@ -85,18 +86,18 @@ function ProdutsDetails() {
 
     }
 
-
     return (
 
         <div>
 
-            {!product ? 
-            <div className='errorFather'>
-                <div className='divErrorImage'>
-                     <img src="../public/404j.jpg" alt="error" /> 
+            <RaouterNav name='Product Details' afterName='Home' path='/' />
+            {!product ?
+                <div className='errorFather'>
+                    <div className='divErrorImage'>
+                        <img src="../public/404j.jpg" alt="error" />
+                    </div>
+                    <p className='error2'>{error}</p>
                 </div>
-                <p className='error2'>{error}</p>
-            </div>
 
                 : <div className='detailContainer'>
                     <div className='picture'>
@@ -111,7 +112,7 @@ function ProdutsDetails() {
                     </div>
 
                     <div className='buttonContent_main_detail'>
-                        <h4>${product.price}</h4>
+                        <h4>Price: ${product.price}</h4>
                         <p>Stock: {product.stock}</p>
                         <button
                             className='shopButton_details'

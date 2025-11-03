@@ -2,11 +2,14 @@ import { ShoppingCart, LucideUserCircle, SearchIcon, Trash2Icon, PlusIcon } from
 import { useShop } from "../context/ShopContextProvider";
 import { useEffect, useState } from "react";
 import ShopCartModal from "./ShopCartModal";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar({ filterApply = true }) {
     const { setfindText, cart, setCart, cutDescription } = useShop()
     const [inputFilter, setInputFilter] = useState('')
     const [isCartOpen, setIsCartOpen] = useState(false);
+
+    const navigate = useNavigate()
 
 
     const handleFilter = () => {
@@ -53,7 +56,7 @@ export default function Navbar({ filterApply = true }) {
 
     return (
         <div className="navbar">
-            <p className="title">ITE-commerce</p>
+            <p className="title" onClick={() => navigate("/")}>ITE-commerce</p>
 
             {filterApply ?
                 <div className="filter">
