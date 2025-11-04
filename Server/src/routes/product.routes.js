@@ -5,7 +5,7 @@ import {
     getAllProducts,
     getOneproduct,
     updateProduct
-} from "../controllers/products.controllers.js";
+} from "../controllers/products.controller.js";
 import multer from "multer";
 
 
@@ -13,7 +13,6 @@ import multer from "multer";
 
 const router = Router()
 const upload = multer({dest:'uploads/'})    
-
 
 
 

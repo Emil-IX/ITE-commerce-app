@@ -1,4 +1,4 @@
-import { json } from 'express';
+
 import connection from '../config/db.js';
 import cloudinary from "../config/cloudinary.js";
 

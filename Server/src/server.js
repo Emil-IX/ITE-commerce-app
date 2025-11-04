@@ -1,6 +1,7 @@
 import express  from 'express'
 import  { connectDB } from './config/db.js'
 import productoRoute from './routes/product.routes.js'
+import invoiceRouter from './routes/invoice.routes.js'
 import { swaggerUi, swaggerSpec } from "./swagger.js";
 import { corsMiddleware } from './config/cors.js';
 
@@ -23,8 +24,9 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 
-
+//endPoints
 app.use('/api/products', productoRoute )
+app.use('/api',invoiceRouter )
 
 
 
