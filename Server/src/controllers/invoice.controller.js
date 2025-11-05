@@ -1,75 +1,115 @@
+// controllers/invoiceController.js
 import PDFDocument from "pdfkit";
 import moment from "moment";
-import fs from "fs";
-import path from "path";
 
 
+export const invoiceGenerator = (req, res) => {
+  try {
+    const { customerName = "Costumer", cartItems = [] } = req.body || {};
+    console.log("[invoice] request received", { customerName, items: cartItems.length });
 
-export const invoiceGenerator = async (req, res) => {
-    try {
 
-        const { customerName, cartItems } = req.body
-        const date = moment().format("YYYY-MM-DD HH:mm")
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", "inline; filename=invoice.pdf");
 
-        const invoicesDir = path.resolve("./src/invoices");
-        if (!fs.existsSync(invoicesDir)) {
-            fs.mkdirSync(invoicesDir, { recursive: true });
+    const doc = new PDFDocument({ margin: 50, size: "A4" });
+
+ 
+    doc.on("error", (err) => {
+      console.error("[invoice] PDFDocument error:", err);
+   
+      try {
+        if (!res.headersSent) {
+          res.status(500).json({ message: "PDF generation error", error: err.message });
+        } else {
+          
+          res.end();
         }
+      } catch (e) {
+        console.error("[invoice] error while sending error response:", e);
+      }
+    });
 
-        //here is where is create the PDF
-        const filePath = path.join( invoicesDir, `invoice_${Date.now()}.pdf`)
-        const doc = new PDFDocument({ margin: 50 })
-        const stream = fs.createWriteStream(filePath)
+  
+    res.on("close", () => {
+      console.warn("[invoice] client connection closed/cancelled");
+      try {
+        doc.destroy(); 
+      } catch (e) {}
+    });
 
-        doc.pipe(stream)
+    
+    doc.pipe(res);
 
-        //Document Header
-        doc
-            .fontSize(20)
-            .text("ITE-commerce", { align: "center" })
-            .moveDown()
+    
+    const date = moment().format("YYYY-MM-DD HH:mm:ss");
 
-        doc.fontSize(12).text(`Customer: ${customerName}`)
-        doc.text(`Date:${date}`)
-        doc.moveDown()
+    // Header blue
+    doc.rect(50, 50, 500, 80).fill("#333");
+    doc.fillColor("#FFFFFF").fontSize(22).font("Helvetica-Bold").text("ITE-Commerce", 60, 70);
+    doc.fontSize(12).font("Helvetica").text("Invoice", 460, 70, { align: "right" });
+    doc.text(`Date: ${date}`, 460, 90, { align: "right" });
 
-        // invoice body
-        doc.fontSize(14).text("Purchase details")
-        doc.moveDown(0.5)
+    // Client
+    doc.fillColor("#000000").fontSize(12).text(`Customer: ${customerName}`, 60, 140).moveDown();
 
-        let total = 0
-        cartItems.forEach((item, index) => {
-            const subTotal = item.price * item.quantity
-            total += subTotal
+    // Table header
+    const tableTop = 170;
+    doc.fontSize(12).fillColor("#FFFFFF").rect(50, tableTop, 500, 25).fill("#1DAA1D");
+    doc.fillColor("#FFFFFF").font("Helvetica-Bold").text("Item", 60, tableTop + 7);
+    doc.text("Qty", 280, tableTop + 7);
+    doc.text("Price", 340, tableTop + 7);
+    doc.text("Subtotal", 440, tableTop + 7);
 
-            doc
-                .fontSize(12)
-                .text(
-                    `${index + 1}. ${item.name} - Quantity: ${item.quantity} - Price: ${item.price} - Subtotal: $${subTotal}`
-                )
-        });
+    // Body
+    doc.fillColor("#000000").font("Helvetica");
+    let y = tableTop + 35;
+    let total = 0;
 
-        doc.moveDown()
-        doc.fontSize(14).text(`Total: $${total}`, { align: "right" })
+    cartItems.forEach((item, index) => {
+      const price = Number(item.price) || 0;
+      const qty = Number(item.quantity) || 0;
+      const subTotal = price * qty;
+      total += subTotal;
 
-        //Footer
-        doc.moveDown(2)
-        doc.fontSize(10).text("Thank you for your purchase", { align: "center" })
+      // cut names if its so longer
+      const name = String(item.name || "").slice(0, 20);
 
-        doc.end()
+      // add new page if it need it
+      if (y > 700) {
+        doc.addPage();
+        y = 60;
+      }
 
-        //final steps
-        stream.on("finish", () => {
-            const fileBuffer = fs.readFileSync(filePath)
-              res.setHeader("Content-Type", "application/pdf");
-              res.setHeader("Content-Disposition", "inline; filename=Bill.pdf");
-              res.send(fileBuffer)
-              fs.unlinkSync(filePath)
+      doc.fontSize(11).text(`${index + 1}. ${name}`, 60, y, { width: 200 });
+      doc.text(qty.toString(), 290, y, { width: 40 });
+      doc.text(`$${price.toFixed(2)}`, 340, y, { width: 60 });
+      doc.text(`$${subTotal.toFixed(2)}`, 440, y, { width: 80, align: "right" });
 
-        })
+      y += 22;
+    });
 
-    } catch (error) {
-        res.status(500).json({ message: 'Error generating invoice', error })
-    }
+    // total
+    doc.moveTo(50, y + 5).lineTo(550, y + 5).strokeColor("#BDBDBD").stroke();
+    y += 20;
+    doc.fontSize(14).font("Helvetica-Bold").text(`Total: $${total.toFixed(2)}`, 400, y, {
+      align: "right",
+    });
 
-}
+    // Footer
+    doc.fontSize(10).fillColor("#757575").text("Thank you for your purchase!", 0, 760, {
+      align: "center",
+    });
+
+
+    doc.end();
+
+    console.log("[invoice] doc.end() called — streaming to client");
+  } catch (err) {
+    console.error("[invoice] unexpected error:", err);
+    try {
+      if (!res.headersSent) res.status(500).json({ message: "Unexpected server error", error: err.message });
+      else res.end();
+    } catch (e) {}
+  }
+};
