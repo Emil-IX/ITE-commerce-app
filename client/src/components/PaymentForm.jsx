@@ -24,7 +24,7 @@ const PaymentForm = ({ totalPrice }) => {
 
 
 
-    const endPayment = async () => {
+    const endPayment = () => {
         if (paymentMethod === 'card') {
 
             if (!email || !cardNumber || !expDate || !secureCode || !contry) {
@@ -37,9 +37,9 @@ const PaymentForm = ({ totalPrice }) => {
         }
 
         setLoading(true)
-        await handleGenerateInvoice('Marcia', cart)
-
+        
         setTimeout(() => {
+            handleGenerateInvoice('Marcia', cart)
             setCart([])
             navigate('/')
             setLoading(false)
