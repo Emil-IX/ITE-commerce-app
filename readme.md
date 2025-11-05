@@ -22,6 +22,10 @@ This project is an e-commerce platform with features such as listing products fr
 
 ![bill](client/public/page4.png)
 
+### Invoice example
+
+![404](client/public/page6.png)
+
 ### Error 404
 
-![bill](client/public/page0.png)
+![404](client/public/page0.png)
