@@ -2,6 +2,7 @@ import Navbar from '../components/Navbar'
 import PaymentForm from '../components/PaymentForm'
 import { useShop } from '../context/ShopContextProvider'
 
+
 function Bill() {
 
   const { total, cart } = useShop()

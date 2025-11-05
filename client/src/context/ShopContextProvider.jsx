@@ -87,7 +87,6 @@ const selectCategory = useCallback((category) => {
         cart, setCart,
         cutDescription,
         total, setTotal,
-        filterProducts,
         selectCategory
 
       }}>

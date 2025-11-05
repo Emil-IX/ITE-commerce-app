@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useShop } from '../context/ShopContextProvider'
 import { IMaskInput } from 'react-imask';
+import { handleGenerateInvoice } from '../utils/invoice'
 
 const PaymentForm = ({ totalPrice }) => {
 
     const [paymentMethod, setPaymentMethod] = useState('card');
 
     const navigate = useNavigate()
-    const { setCart } = useShop()
+    const { cart, setCart } = useShop()
     const [loading, setLoading] = useState(false)
 
 
@@ -23,7 +24,7 @@ const PaymentForm = ({ totalPrice }) => {
 
 
 
-    const endPayment = () => {
+    const endPayment = async () => {
         if (paymentMethod === 'card') {
 
             if (!email || !cardNumber || !expDate || !secureCode || !contry) {
@@ -36,7 +37,7 @@ const PaymentForm = ({ totalPrice }) => {
         }
 
         setLoading(true)
-
+        await handleGenerateInvoice('Marcia', cart)
 
         setTimeout(() => {
             setCart([])

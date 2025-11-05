@@ -94,7 +94,7 @@ function ProdutsDetails() {
             {!product ?
                 <div className='errorFather'>
                     <div className='divErrorImage'>
-                        <img src="../public/404j.jpg" alt="error" />
+                        <img src="../404j.jpg" alt="error" />
                     </div>
                     <p className='error2'>{error}</p>
                 </div>
