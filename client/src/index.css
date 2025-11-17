@@ -112,6 +112,7 @@
     overflow: hidden;
     padding: 20px 0;
     background-color: #333;
+    user-select: none;
 
 }
 
@@ -310,6 +311,7 @@
     max-width: 500px;
     width: 90%;
     overflow-y: auto;
+    user-select: none;
 
 }
 
@@ -936,6 +938,7 @@ select:focus {
     gap: 5px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
+    user-select: none;
 }
 
 .routerNav :nth-child(1) {
