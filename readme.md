@@ -1,4 +1,4 @@
-# ITE-Commerce
+## ITE-Commerce
 
 This project is an e-commerce platform with features such as listing products from a database and managing them dynamically from various endpoints, enabling full CRUD operations.
 
