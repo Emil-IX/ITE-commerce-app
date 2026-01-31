@@ -31,7 +31,7 @@ This project is an e-commerce platform with features such as listing products fr
 ![404](client/public/page0.png)
 
 
-# Base de Datos de E-commerce
+###  E-commerce Data Base
 
 This is the script to create the table products:
 
