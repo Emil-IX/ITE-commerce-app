@@ -22,7 +22,7 @@ function ProdutsDetails() {
                 setLoading(true);
                 const res = await api.get(`/products/${id}`);
                 if (isMounted) {
-                    setProduct(res.data[0]);
+                    setProduct(res.data);
                     setLoading(false);
                 }
             } catch (error) {
